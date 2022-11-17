@@ -9,14 +9,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import es.unex.proyectogps_asee.databinding.FragmentFirstBinding;
+import es.unex.proyectogps_asee.databinding.FragmentHomeBinding;
 
 public class HomeFragment extends Fragment {
 
-    private FragmentFirstBinding binding;
+    private FragmentHomeBinding binding;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = FragmentFirstBinding.inflate(inflater, container, false);
+        binding = FragmentHomeBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 

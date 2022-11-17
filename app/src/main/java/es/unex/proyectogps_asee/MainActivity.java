@@ -1,6 +1,8 @@
 package es.unex.proyectogps_asee;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.view.MenuItem;
 
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -31,24 +33,25 @@ public class MainActivity extends AppCompatActivity {
         replaceFragment(new HomeFragment());
 
 
-        binding.bottomNavigationView.setOnClickListener(item -> {
+      binding.bottomNavigationView.setOnItemSelectedListener( item -> {
 
-            switch (item.getId()) {
+                switch (item.getItemId()) {
 
-                case R.id.home:
-                    replaceFragment(new HomeFragment());
-                    break;
-                case R.id.search:
-                    replaceFragment(new SearchFragment());
-                    break;
-                case R.id.profile:
-                    replaceFragment(new ProfileFragment());
-                    break;
-            }
-        });
+                    case R.id.home:
+                        replaceFragment(new HomeFragment());
+                        break;
+                    case R.id.search:
+                        replaceFragment(new SearchFragment());
+                        break;
+                    case R.id.profile:
+                        replaceFragment(new ProfileFragment());
+                        break;
+                }
+                return true;
+            });
     }
 
-    //Method tha replace the frame layout with the fragment requiere
+    //Method tha replace the frame layout with the fragment requiered
     private void replaceFragment(Fragment fragment){
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
