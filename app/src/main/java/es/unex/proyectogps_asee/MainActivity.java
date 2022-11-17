@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        replaceFragment(new HomeFragment());
+        replaceFragment(new HomeFragment()); //Initial Fragment by deafault
 
 
       binding.bottomNavigationView.setOnItemSelectedListener( item -> {

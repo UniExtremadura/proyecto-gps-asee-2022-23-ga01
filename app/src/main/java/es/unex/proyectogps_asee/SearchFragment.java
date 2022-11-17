@@ -9,15 +9,16 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
+import es.unex.proyectogps_asee.databinding.CardCellBinding;
 import es.unex.proyectogps_asee.databinding.FragmentFirstBinding;
 
 public class SearchFragment extends Fragment {
 
-    private FragmentFirstBinding binding;
+    private CardCellBinding binding;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = FragmentFirstBinding.inflate(inflater, container, false);
+        binding = CardCellBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 
