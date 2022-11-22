@@ -15,8 +15,14 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
+
+import es.unex.proyectogps_asee.adapters.Adapter;
 import es.unex.proyectogps_asee.databinding.ActivityMainBinding;
+import es.unex.proyectogps_asee.modelos.Juego;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -31,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         replaceFragment(new HomeFragment()); //Initial Fragment by deafault
-
 
       binding.bottomNavigationView.setOnItemSelectedListener( item -> {
 
@@ -59,5 +64,4 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.replace(R.id.frame_layout, fragment);
         fragmentTransaction.commit();
     }
-
 }
