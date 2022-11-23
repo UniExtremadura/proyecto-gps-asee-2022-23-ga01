@@ -1,6 +1,7 @@
 package es.unex.proyectogps_asee;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -45,7 +46,11 @@ public class SearchFragment extends Fragment {
         binding.category1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                replaceFragment(new ListaJuegosFragment());
+                //Lanza el activity de busquedas pasandole como parametro la url
+                //Al llamar al activity de Busqueda de juegos hay que pasarle siempre la url de los juegos que tiene que cargar
+                Intent intent = new Intent(getActivity(),BusquedaJuegosActivity.class);
+                intent.putExtra("url","https://api.igdb.com/v4/games/?fields=name,summary,rating,cover.image_id&search=minecraft/" );
+                startActivity(intent);
             }
         });
 
@@ -57,19 +62,4 @@ public class SearchFragment extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
-    //Method tha replace the frame layout with the fragment requiered
-    private void replaceFragment(Fragment fragment){
-        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-
-        //Put the data to pass to the next fragment
-        Bundle bundle = new Bundle();
-        bundle.putString("url", "https://api.igdb.com/v4/games/?fields=name,summary,rating,cover.image_id&search=minecraft/");
-        fragment.setArguments(bundle);
-
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.setReorderingAllowed(true);
-
-        fragmentTransaction.replace(R.id.searchCard, fragment);
-        fragmentTransaction.commit();
-    }
 }

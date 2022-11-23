@@ -10,8 +10,10 @@
         app:layout_width="match_parent"
         app:layout_height="wrap_content"
         app:id="@+id/cardViewList"
-        app1:cardElevation="10dp"
-        app1:cardCornerRadius="20dp">
+        app1:cardElevation="5dp"
+        app1:cardCornerRadius="20dp"
+        app:layout_marginBottom="10dp"
+        app:layout_marginTop="10dp">
     <RelativeLayout
         app:layout_width="match_parent"
         app:layout_height="wrap_content">
@@ -41,6 +43,17 @@
             app:layout_marginTop="20dp"
             app:layout_marginLeft="20dp"
             app:id="@+id/tv1"/>
+
+        <TextView
+            app:layout_width="wrap_content"
+            app:layout_height="wrap_content"
+            app:text="Rating:"
+            app:textSize="20dp"
+            app:layout_toRightOf="@id/imageView"
+            app:layout_marginTop="50dp"
+            app:layout_marginLeft="20dp"
+            app:id="@+id/tv3"/>
+
         <TextView
             app:layout_width="wrap_content"
             app:layout_height="wrap_content"
@@ -48,7 +61,7 @@
             app:textSize="20dp"
             app:layout_toRightOf="@id/imageView"
             app:layout_marginTop="50dp"
-            app:layout_marginLeft="20dp"
+            app:layout_marginLeft="90dp"
             app:id="@+id/tv2"/>
     </RelativeLayout>
     </androidx.cardview.widget.CardView>

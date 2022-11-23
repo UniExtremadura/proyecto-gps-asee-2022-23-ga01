@@ -88,10 +88,9 @@ public class ListaJuegosFragment extends Fragment {
         call.enqueue(new Callback<List<Juego>>() {
             @Override
             public void onResponse(Call<List<Juego>> call, Response<List<Juego>> response) {
-                //juegos = response.body();
-
-
+                juegos = response.body();
                 Log.i("TAMANO DEL ARRAY",""+juegos.size()); //En este punto consigue de forma correcta los datos de la API
+                Log.i("ELEMENTO 2 DEL ARRAY: ", ""+juegos.get(2).getNombre());
             }
 
             @Override
