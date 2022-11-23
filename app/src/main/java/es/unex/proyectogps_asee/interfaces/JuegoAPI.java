@@ -18,7 +18,7 @@ public interface JuegoAPI {
     public static final String client_secret = "hycupr3hfkp53t6m4dq944ro8tnd6q";
     public static String token = "Bearer 19snypduzg5xovba3kzfe483zcs6sa";
 
-    @POST("https://api.igdb.com/v4/games/")
+    @POST("games/?fields=name,summary,rating,cover.image_id&search=minecraft/")
     public Call<List<Juego>> find(@HeaderMap Map<String, String> mapHeaders);
 
 }

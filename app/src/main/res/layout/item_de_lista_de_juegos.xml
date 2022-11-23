@@ -45,24 +45,28 @@
             app:id="@+id/tv1"/>
 
         <TextView
+            app:id="@+id/tv3"
             app:layout_width="wrap_content"
             app:layout_height="wrap_content"
+            app:layout_below="@+id/tv1"
+            app:layout_marginLeft="20dp"
+            app:layout_marginTop="3dp"
+            app:layout_toRightOf="@id/imageView"
             app:text="Rating:"
             app:textSize="20dp"
-            app:layout_toRightOf="@id/imageView"
-            app:layout_marginTop="50dp"
-            app:layout_marginLeft="20dp"
-            app:id="@+id/tv3"/>
+            app:layout_marginBottom="20dp"/>
 
         <TextView
+            app:id="@+id/tv2"
             app:layout_width="wrap_content"
             app:layout_height="wrap_content"
+            app:layout_below="@+id/tv1"
+            app:layout_marginLeft="90dp"
+            app:layout_marginTop="3dp"
+            app:layout_toRightOf="@id/imageView"
             app:text="Rating"
             app:textSize="20dp"
-            app:layout_toRightOf="@id/imageView"
-            app:layout_marginTop="50dp"
-            app:layout_marginLeft="90dp"
-            app:id="@+id/tv2"/>
+            app:layout_marginBottom="20dp"/>
     </RelativeLayout>
     </androidx.cardview.widget.CardView>
 </RelativeLayout>

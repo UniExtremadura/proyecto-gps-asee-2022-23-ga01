@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 import es.unex.proyectogps_asee.R;
@@ -19,6 +20,7 @@ import es.unex.proyectogps_asee.modelos.Juego;
 public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
     private List<Juego> juegos;
+    private static final DecimalFormat df = new DecimalFormat("0.00");
 
     public Adapter(List<Juego> juegos){
         this.juegos = juegos;
@@ -33,9 +35,9 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull Adapter.ViewHolder holder, int position) {
-        holder.tv1.setText(juegos.get(position).getNombre());
-        Log.i("ELEMENTO DEL JUEGO", "" + juegos.get(1).getNombre());
-        holder.tv2.setText(juegos.get(position).getRating().toString());
+        holder.tv1.setText(juegos.get(position).getName());
+        Log.i("ELEMENTO DEL JUEGO", "" + juegos.get(1).getName());
+        holder.tv2.setText(juegos.get(position).getRating()==null ? "N/A" : df.format(juegos.get(position).getRating()) );
     }
 
     @Override

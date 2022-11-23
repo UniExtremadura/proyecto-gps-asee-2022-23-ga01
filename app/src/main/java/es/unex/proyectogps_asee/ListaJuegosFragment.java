@@ -56,8 +56,8 @@ public class ListaJuegosFragment extends Fragment {
         if(bundle!=null){
             this.url = bundle.getString("url");
             Log.i("url",url); //Lanza el fragment y pasa de forma correcta la url en este punto
-            initData();
-            //testJuegos(this.url); //Obtiene los juegos de la API y los mete en la lista de juegos
+            //initData();
+            testJuegos(this.url); //Obtiene los juegos de la API y los mete en la lista de juegos
         }
 
         // Init Recycler view
@@ -66,9 +66,7 @@ public class ListaJuegosFragment extends Fragment {
         linearLayout.setOrientation(RecyclerView.VERTICAL);
         recyclerView.setLayoutManager(linearLayout);
 
-        //Init adapter
-        Adapter adapter = new Adapter(juegos);
-        recyclerView.setAdapter(adapter);
+
 
         return view;
     }
@@ -79,7 +77,7 @@ public class ListaJuegosFragment extends Fragment {
             put("Authorization", JuegoAPI.token);
         }};
 
-        Retrofit.Builder builder = new Retrofit.Builder().baseUrl(url).addConverterFactory(GsonConverterFactory.create());
+        Retrofit.Builder builder = new Retrofit.Builder().baseUrl("https://api.igdb.com/v4/").addConverterFactory(GsonConverterFactory.create());
         Retrofit retrofit = builder.build();
 
         JuegoAPI client = retrofit.create(JuegoAPI.class);
@@ -89,8 +87,10 @@ public class ListaJuegosFragment extends Fragment {
             @Override
             public void onResponse(Call<List<Juego>> call, Response<List<Juego>> response) {
                 juegos = response.body();
+                Adapter adapter = new Adapter(juegos);
+                recyclerView.setAdapter(adapter);
                 Log.i("TAMANO DEL ARRAY",""+juegos.size()); //En este punto consigue de forma correcta los datos de la API
-                Log.i("ELEMENTO 2 DEL ARRAY: ", ""+juegos.get(2).getNombre());
+                Log.i("ELEMENTO 2 DEL ARRAY: ", ""+juegos.get(2).getName());
             }
 
             @Override
@@ -101,7 +101,7 @@ public class ListaJuegosFragment extends Fragment {
     }
 
     public void initData(){
-        juegos = new ArrayList<Juego>();
+        /*juegos = new ArrayList<Juego>();
         Juego j1 = new Juego(1,"mena",2.0,"",null);
         Juego j2 = new Juego(2,"ned",2.0,"",null);
         Juego j3 = new Juego(3,"mefsdfna",2.0,"",null);
@@ -113,6 +113,6 @@ public class ListaJuegosFragment extends Fragment {
         juegos.add(j3);
         juegos.add(j4);
         juegos.add(j5);
-        juegos.add(j6);
+        juegos.add(j6);*/
     }
 }
