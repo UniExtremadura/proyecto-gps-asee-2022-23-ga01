@@ -13,6 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
+import android.widget.SearchView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,6 +36,8 @@ public class ListaJuegosFragment extends Fragment {
 
     private static List<Juego> juegos = new ArrayList();
     private String url;
+    private String genreName;
+    private String gameName;
     private RecyclerView recyclerView;
     private ListRecyclerviewBinding binding;
 
@@ -55,9 +59,15 @@ public class ListaJuegosFragment extends Fragment {
         Bundle bundle = this.getArguments();
         if(bundle!=null){
             this.url = bundle.getString("url");
-            Log.i("url",url); //Lanza el fragment y pasa de forma correcta la url en este punto
-            //initData();
-            testJuegos(this.url); //Obtiene los juegos de la API y los mete en la lista de juegos
+            this.genreName = bundle.getString("genreName");
+            this.gameName = bundle.getString("gameName");
+
+            if(genreName!=null) {
+                busquedaJuegosPorCategoria(this.url,genreName); //Obtiene los juegos de la API y los mete en la lista de juegos
+            }
+            else if(gameName!=null){
+                busquedaJuegosPorNombre(this.url,gameName);
+            } else{Toast.makeText(getContext(),"Error al cargar la categoria", Toast.LENGTH_LONG);}
         }
 
         // Init Recycler view
@@ -71,7 +81,7 @@ public class ListaJuegosFragment extends Fragment {
         return view;
     }
 
-    public void testJuegos(String url){
+    public void busquedaJuegosPorCategoria(String url, String genre){
         Map<String, String> mapHeaders = new HashMap<String, String>() {{
             put("Client-ID", JuegoAPI.id_cliente);
             put("Authorization", JuegoAPI.token);
@@ -81,7 +91,8 @@ public class ListaJuegosFragment extends Fragment {
         Retrofit retrofit = builder.build();
 
         JuegoAPI client = retrofit.create(JuegoAPI.class);
-        Call<List<Juego>> call = client.find(mapHeaders);
+        Log.i("EL GENERO ELEGIDO ES: ",""+genre);
+        Call<List<Juego>> call = client.find(mapHeaders,genre);
 
         call.enqueue(new Callback<List<Juego>>() {
             @Override
@@ -89,8 +100,7 @@ public class ListaJuegosFragment extends Fragment {
                 juegos = response.body();
                 Adapter adapter = new Adapter(juegos);
                 recyclerView.setAdapter(adapter);
-                Log.i("TAMANO DEL ARRAY",""+juegos.size()); //En este punto consigue de forma correcta los datos de la API
-                Log.i("ELEMENTO 2 DEL ARRAY: ", ""+juegos.get(2).getName());
+                Log.i("data","fdgdgd");
             }
 
             @Override
@@ -100,19 +110,32 @@ public class ListaJuegosFragment extends Fragment {
         });
     }
 
-    public void initData(){
-        /*juegos = new ArrayList<Juego>();
-        Juego j1 = new Juego(1,"mena",2.0,"",null);
-        Juego j2 = new Juego(2,"ned",2.0,"",null);
-        Juego j3 = new Juego(3,"mefsdfna",2.0,"",null);
-        Juego j4 = new Juego(4,"meaaaana",2.0,"",null);
-        Juego j5 = new Juego(5,"menvvva",2.0,"",null);
-        Juego j6 = new Juego(6,"meaaaana",2.0,"",null);
-        juegos.add(j1);
-        juegos.add(j2);
-        juegos.add(j3);
-        juegos.add(j4);
-        juegos.add(j5);
-        juegos.add(j6);*/
+    public void busquedaJuegosPorNombre(String url, String gameName){
+        Map<String, String> mapHeaders = new HashMap<String, String>() {{
+            put("Client-ID", JuegoAPI.id_cliente);
+            put("Authorization", JuegoAPI.token);
+        }};
+
+        Retrofit.Builder builder = new Retrofit.Builder().baseUrl("https://api.igdb.com/v4/").addConverterFactory(GsonConverterFactory.create());
+        Retrofit retrofit = builder.build();
+
+        JuegoAPI client = retrofit.create(JuegoAPI.class);
+        Log.i("EL JUWGO ELEGIDO ES: ",""+gameName);
+        Call<List<Juego>> call = client.busquedaDirecta(mapHeaders,gameName);
+
+        call.enqueue(new Callback<List<Juego>>() {
+            @Override
+            public void onResponse(Call<List<Juego>> call, Response<List<Juego>> response) {
+                juegos = response.body();
+                Adapter adapter = new Adapter(juegos);
+                recyclerView.setAdapter(adapter);
+                Log.i("data","fdgdgd");
+            }
+
+            @Override
+            public void onFailure(Call<List<Juego>> call, Throwable t) {
+                Log.i("ERROR DATOS API", "MIERDA, NO FUNCIONA");
+            }
+        });
     }
 }

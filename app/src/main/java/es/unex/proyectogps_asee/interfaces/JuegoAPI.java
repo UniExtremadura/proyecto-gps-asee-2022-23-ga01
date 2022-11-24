@@ -12,13 +12,21 @@ import retrofit2.http.HeaderMap;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface JuegoAPI {
     public static final String id_cliente = "2ed4mxy3i716dml120q2vhsbcpgizs";
     public static final String client_secret = "hycupr3hfkp53t6m4dq944ro8tnd6q";
     public static String token = "Bearer 19snypduzg5xovba3kzfe483zcs6sa";
 
-    @POST("games/?fields=name,summary,rating,cover.image_id&search=minecraft/")
-    public Call<List<Juego>> find(@HeaderMap Map<String, String> mapHeaders);
+    //games/?fields=name,summary,rating,cover.image_id&search=minecraft/
+    //games/?fields=name,rating&genres.shooter
+    @POST("games/?fields=name,rating&genres.")
+    public Call<List<Juego>> find(@HeaderMap Map<String, String> mapHeaders, @Query("genreName") String genreName);
+    // @Query("genreName") String genreName
+
+    @POST("games/?fields=name,summary,rating,cover.image_id&search=")
+    public Call<List<Juego>> busquedaDirecta(@HeaderMap Map<String, String> mapHeaders, @Query("nameGame") String nameGame);
+
 
 }

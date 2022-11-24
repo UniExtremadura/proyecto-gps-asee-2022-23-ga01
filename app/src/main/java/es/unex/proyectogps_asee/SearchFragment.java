@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.RelativeLayout;
+import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -43,14 +44,81 @@ public class SearchFragment extends Fragment {
         binding = CardCellBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
 
-        binding.category1.setOnClickListener(new View.OnClickListener() {
+        Intent intent = new Intent(getActivity(),BusquedaJuegosActivity.class);
+        intent.putExtra("url","https://api.igdb.com/v4/");
+
+        binding.categoryFighting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //Lanza el activity de busquedas pasandole como parametro la url
                 //Al llamar al activity de Busqueda de juegos hay que pasarle siempre la url de los juegos que tiene que cargar
-                Intent intent = new Intent(getActivity(),BusquedaJuegosActivity.class);
-                intent.putExtra("url","https://api.igdb.com/v4/games/?fields=name,summary,rating,cover.image_id&search=minecraft/" );
+                intent.putExtra("genreName","fighting");
                 startActivity(intent);
+            }
+        });
+
+        binding.categoryShooter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Lanza el activity de busquedas pasandole como parametro la url
+                //Al llamar al activity de Busqueda de juegos hay que pasarle siempre la url de los juegos que tiene que cargar
+                intent.putExtra("genreName","shooter");
+                startActivity(intent);
+            }
+        });
+
+        binding.categoryMusic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Lanza el activity de busquedas pasandole como parametro la url
+                //Al llamar al activity de Busqueda de juegos hay que pasarle siempre la url de los juegos que tiene que cargar
+                intent.putExtra("genreName","music");
+                startActivity(intent);
+            }
+        });
+
+        binding.categoryPlatform.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Lanza el activity de busquedas pasandole como parametro la url
+                //Al llamar al activity de Busqueda de juegos hay que pasarle siempre la url de los juegos que tiene que cargar
+                intent.putExtra("genreName","platform");
+                startActivity(intent);
+            }
+        });
+
+        binding.categorySports.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Lanza el activity de busquedas pasandole como parametro la url
+                //Al llamar al activity de Busqueda de juegos hay que pasarle siempre la url de los juegos que tiene que cargar
+                intent.putExtra("genreName","sports");
+                startActivity(intent);
+            }
+        });
+
+        binding.categorySimulator.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Lanza el activity de busquedas pasandole como parametro la url
+                //Al llamar al activity de Busqueda de juegos hay que pasarle siempre la url de los juegos que tiene que cargar
+                intent.putExtra("genreName","simulator");
+                startActivity(intent);
+            }
+        });
+
+        binding.searchBar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                intent.putExtra("gameName",s);
+                Log.i("EL JUEGO ES: ",s);
+                startActivity(intent);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                return true;
             }
         });
 
