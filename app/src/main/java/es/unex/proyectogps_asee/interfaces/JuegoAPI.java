@@ -21,12 +21,12 @@ public interface JuegoAPI {
 
     //games/?fields=name,summary,rating,cover.image_id&search=minecraft/
     //games/?fields=name,rating&genres.shooter
-    @POST("games/?fields=name,rating&genres.")
-    public Call<List<Juego>> find(@HeaderMap Map<String, String> mapHeaders, @Query("genreName") String genreName);
+    @POST("games/?fields=name,rating&genres.music")
+    public Call<List<Juego>> find(@HeaderMap Map<String, String> mapHeaders, @Query("genres") String genreName);
     // @Query("genreName") String genreName
 
-    @POST("games/?fields=name,summary,rating,cover.image_id&search=")
-    public Call<List<Juego>> busquedaDirecta(@HeaderMap Map<String, String> mapHeaders, @Query("nameGame") String nameGame);
+    @POST("games/?fields=name,summary,rating,cover.image_id")
+    public Call<List<Juego>> busquedaDirecta(@HeaderMap Map<String, String> mapHeaders, @Query("search") String nameGame);
 
 
 }

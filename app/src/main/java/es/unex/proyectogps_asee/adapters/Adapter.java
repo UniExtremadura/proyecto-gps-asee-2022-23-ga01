@@ -1,5 +1,6 @@
 package es.unex.proyectogps_asee.adapters;
 
+import android.content.ClipData;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,9 +22,15 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
     private List<Juego> juegos;
     private static final DecimalFormat df = new DecimalFormat("0.00");
+    private ItemClickListener mItemListener;
 
-    public Adapter(List<Juego> juegos){
+    public interface ItemClickListener{
+        void onItemClick(Juego juego);
+    }
+
+    public Adapter(List<Juego> juegos, ItemClickListener itemClickListener){
         this.juegos = juegos;
+        this.mItemListener = itemClickListener;
     }
 
     @NonNull
@@ -36,8 +43,11 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull Adapter.ViewHolder holder, int position) {
         holder.tv1.setText(juegos.get(position).getName());
-        Log.i("ELEMENTO DEL JUEGO", "" + juegos.get(1).getName());
         holder.tv2.setText(juegos.get(position).getRating()==null ? "N/A" : df.format(juegos.get(position).getRating()) );
+
+        holder.itemView.setOnClickListener(view -> {
+            mItemListener.onItemClick(juegos.get(position)); //This will get the position of our item in recyclerView
+        });
     }
 
     @Override

@@ -29,7 +29,7 @@ public class BusquedaJuegosActivity extends AppCompatActivity {
         url = getIntent().getStringExtra("url");
         genreName = getIntent().getStringExtra("genreName");
         gameName = getIntent().getStringExtra("gameName");
-        Log.i("El juego es: ", gameName);
+        //Log.i("El juego es: ", gameName);
         replaceFragment(new ListaJuegosFragment(),genreName, gameName); //Initial Fragment by deafault
 
         binding.bottomNavigationView2.setOnItemSelectedListener( item -> {
@@ -51,13 +51,14 @@ public class BusquedaJuegosActivity extends AppCompatActivity {
     }
 
     //Method tha replace the frame layout with the fragment requiered
-    private void replaceFragment(Fragment fragment, @Nullable String genreName, @Nullable String ganmeName){
+    private void replaceFragment(Fragment fragment, @Nullable String genreName, @Nullable String gameName){
         FragmentManager fragmentManager = this.getSupportFragmentManager();
 
         //Put the data to pass to the next fragment
         Bundle bundle = new Bundle();
         bundle.putString("url", url);
         bundle.putString("genreName", genreName);
+        bundle.putString("gameName", gameName);
         fragment.setArguments(bundle);
 
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

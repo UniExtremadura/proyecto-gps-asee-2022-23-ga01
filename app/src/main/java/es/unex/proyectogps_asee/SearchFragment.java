@@ -111,7 +111,7 @@ public class SearchFragment extends Fragment {
             @Override
             public boolean onQueryTextSubmit(String s) {
                 intent.putExtra("gameName",s);
-                Log.i("EL JUEGO ES: ",s);
+                //Log.i("EL JUEGO ES: ",s);
                 startActivity(intent);
                 return true;
             }

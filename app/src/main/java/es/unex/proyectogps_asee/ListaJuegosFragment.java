@@ -4,6 +4,8 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -91,16 +93,22 @@ public class ListaJuegosFragment extends Fragment {
         Retrofit retrofit = builder.build();
 
         JuegoAPI client = retrofit.create(JuegoAPI.class);
-        Log.i("EL GENERO ELEGIDO ES: ",""+genre);
-        Call<List<Juego>> call = client.find(mapHeaders,genre);
+        //Log.i("EL GENERO ELEGIDO ES: ",""+genre);
+        Call<List<Juego>> call = client.find(mapHeaders, this.genreName);
+        //Call<List<Juego>> call = client.find(mapHeaders,genre);
 
         call.enqueue(new Callback<List<Juego>>() {
             @Override
             public void onResponse(Call<List<Juego>> call, Response<List<Juego>> response) {
                 juegos = response.body();
-                Adapter adapter = new Adapter(juegos);
+                Adapter adapter = new Adapter(juegos, new Adapter.ItemClickListener() {
+                    @Override
+                    public void onItemClick(Juego juego) {
+
+                        replaceFragment(new JuegoEnDetalleFragment(juego));
+                    }
+                });
                 recyclerView.setAdapter(adapter);
-                Log.i("data","fdgdgd");
             }
 
             @Override
@@ -120,16 +128,20 @@ public class ListaJuegosFragment extends Fragment {
         Retrofit retrofit = builder.build();
 
         JuegoAPI client = retrofit.create(JuegoAPI.class);
-        Log.i("EL JUWGO ELEGIDO ES: ",""+gameName);
+        //Log.i("EL JUWGO ELEGIDO ES: ",""+gameName);
         Call<List<Juego>> call = client.busquedaDirecta(mapHeaders,gameName);
 
         call.enqueue(new Callback<List<Juego>>() {
             @Override
             public void onResponse(Call<List<Juego>> call, Response<List<Juego>> response) {
                 juegos = response.body();
-                Adapter adapter = new Adapter(juegos);
+                Adapter adapter = new Adapter(juegos, new Adapter.ItemClickListener() {
+                    @Override
+                    public void onItemClick(Juego juego) {
+                        replaceFragment(new JuegoEnDetalleFragment(juego));
+                    }
+                });
                 recyclerView.setAdapter(adapter);
-                Log.i("data","fdgdgd");
             }
 
             @Override
@@ -137,5 +149,14 @@ public class ListaJuegosFragment extends Fragment {
                 Log.i("ERROR DATOS API", "MIERDA, NO FUNCIONA");
             }
         });
+    }
+
+    //Method tha replace the frame layout with the fragment requiered
+    private void replaceFragment(Fragment fragment){
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        fragmentTransaction.replace(R.id.frame_layout2, fragment);
+        fragmentTransaction.commit();
     }
 }
