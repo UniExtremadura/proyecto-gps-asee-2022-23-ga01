@@ -18,11 +18,13 @@ public interface JuegoAPI {
     public static final String id_cliente = "2ed4mxy3i716dml120q2vhsbcpgizs";
     public static final String client_secret = "hycupr3hfkp53t6m4dq944ro8tnd6q";
     public static String token = "Bearer 19snypduzg5xovba3kzfe483zcs6sa";
+    public static String fields = "name;";
+    public static String where = "genres.slug=\"music\";";
 
     //games/?fields=name,summary,rating,cover.image_id&search=minecraft/
     //games/?fields=name,rating&genres.shooter
-    @POST("games/?fields=name,rating&genres.music")
-    public Call<List<Juego>> find(@HeaderMap Map<String, String> mapHeaders, @Query("genres") String genreName);
+    @POST("games/")
+    public Call<List<Juego>> find(@HeaderMap Map<String, String> mapHeaders, @Body HashMap<String,String> body);
     // @Query("genreName") String genreName
 
     @POST("games/?fields=name,summary,rating,cover.image_id")

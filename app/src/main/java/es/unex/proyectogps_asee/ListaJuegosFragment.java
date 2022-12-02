@@ -89,12 +89,17 @@ public class ListaJuegosFragment extends Fragment {
             put("Authorization", JuegoAPI.token);
         }};
 
+        HashMap<String,String> mapBody = new HashMap<String,String>(){{
+            put("fields ",JuegoAPI.fields);
+            put("where ", JuegoAPI.where);
+        }};
+
         Retrofit.Builder builder = new Retrofit.Builder().baseUrl("https://api.igdb.com/v4/").addConverterFactory(GsonConverterFactory.create());
         Retrofit retrofit = builder.build();
 
         JuegoAPI client = retrofit.create(JuegoAPI.class);
         //Log.i("EL GENERO ELEGIDO ES: ",""+genre);
-        Call<List<Juego>> call = client.find(mapHeaders, this.genreName);
+        Call<List<Juego>> call = client.find(mapHeaders,mapBody);
         //Call<List<Juego>> call = client.find(mapHeaders,genre);
 
         call.enqueue(new Callback<List<Juego>>() {
